@@ -1,0 +1,49 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Example {
+  id: String!
+  description: String!
+}
+
+type Token {
+  identifier: String!
+  name: String!
+  accounts: Int
+  transactions: Int
+}
+
+type User {
+  id: Int!
+  firstName: String!
+  lastName: String!
+  isActive: Boolean!
+}
+
+type Query {
+  examples(input: ExampleArgs!): [Example!]!
+  tokens: [Token!]!
+  users: [User!]!
+}
+
+input ExampleArgs {
+  from: Int! = 0
+  size: Int! = 25
+  search: String
+}
+
+type Mutation {
+  createToken(input: CreateTokenArgs!): Token!
+  createUser(input: CreateUserArgs!): User!
+}
+
+input CreateTokenArgs {
+  identifier: String!
+  name: String!
+}
+
+input CreateUserArgs {
+  firstName: String!
+  lastName: String!
+}
