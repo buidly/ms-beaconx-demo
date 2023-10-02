@@ -6,7 +6,7 @@ import { EventsNotifierConsumerService } from './events.notifier.consumer.servic
 @Module({
   imports: [
     RabbitModule.forRootAsync({
-      useFactory: () => new RabbitModuleOptions(Config.features.eventsNotifier.url, []),
+      useFactory: () => new RabbitModuleOptions(Config.eventsNotifier.url, []),
     }),
   ],
   providers: [

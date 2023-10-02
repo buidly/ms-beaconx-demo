@@ -1,9 +1,9 @@
-import "reflect-metadata";
+import 'reflect-metadata';
 import { readFileSync } from 'fs';
 import * as yaml from 'js-yaml';
 import { join } from 'path';
 
-require("dotenv").config({
+require('dotenv').config({
   path: process.env.NODE_ENV == 'test' ? '.env.test' : '.env',
 });
 

@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CompetingRabbitConsumer, OriginLogger } from '@multiversx/sdk-nestjs';
+import { OriginLogger } from '@multiversx/sdk-nestjs';
 import { NotifierBlockEvent } from './entities/notifier.block.event';
 import { NotifierEvent } from './entities';
 import Config from 'config/configuration';
+import { CompetingRabbitConsumer } from './rabbitmq.consumers';
 
 @Injectable()
 export class EventsNotifierConsumerService {
@@ -11,11 +12,11 @@ export class EventsNotifierConsumerService {
   constructor() { }
 
   @CompetingRabbitConsumer({
-    exchange: Config.features.eventsNotifier.exchange,
-    queue: Config.features.eventsNotifier.queue,
+    queueName: Config.eventsNotifier.queue,
   })
   async consumeEvents(blockEvent: NotifierBlockEvent) {
     try {
+      this.logger.log(`Received ${blockEvent.events.length} events from block with hash ${blockEvent.hash}`);
       for (const event of blockEvent.events) {
         await this.handleEvent(event);
       }
