@@ -17,16 +17,13 @@ export class EventsNotifierConsumerService {
   })
   async consumeEvents(blockEvent: NotifierBlockEvent) {
     try {
-      this.logger.log(`Received ${blockEvent.events.length} events from block with hash ${blockEvent.hash}`);
+      this.logger.log(`Received ${blockEvent.events.length} events from block ${blockEvent.hash}`);
+
       for (const event of blockEvent.events) {
         await this.handleEvent(event);
       }
     } catch (error) {
-      this.logger.error(
-        `An unhandled error occurred when consuming events from block with hash ${blockEvent.hash}: ${JSON.stringify(
-          blockEvent.events,
-        )}`,
-      );
+      this.logger.error(`An unhandled error occurred when consuming events from block ${blockEvent.hash}`, blockEvent.events);
       this.logger.error(error);
 
       throw error;
@@ -34,6 +31,6 @@ export class EventsNotifierConsumerService {
   }
 
   private async handleEvent(event: NotifierEvent): Promise<void> {
-    console.log(event);
+    this.logger.log(event);
   }
 }
