@@ -3,7 +3,7 @@ import { OriginLogger } from '@multiversx/sdk-nestjs';
 import { NotifierBlockEvent } from './entities/notifier.block.event';
 import { NotifierEvent } from './entities';
 import Config from 'config/configuration';
-import { CompetingRabbitConsumer } from './rabbitmq.consumers';
+import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 
 @Injectable()
 export class EventsNotifierConsumerService {
@@ -11,8 +11,9 @@ export class EventsNotifierConsumerService {
 
   constructor() { }
 
-  @CompetingRabbitConsumer({
-    queueName: Config.eventsNotifier.queue,
+  @RabbitSubscribe({
+    queue: Config.eventsNotifier.queue,
+    createQueueIfNotExists: false,
   })
   async consumeEvents(blockEvent: NotifierBlockEvent) {
     try {
