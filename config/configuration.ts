@@ -8,9 +8,6 @@ class EventsNotifierConfig {
   @ConfigValue({ env: 'EVENTS_NOTIFIER_URL' })
   public readonly url!: string;
 
-  @ConfigValue({ env: 'EVENTS_NOTIFIER_EXCHANGE' })
-  public readonly exchange!: string;
-
   @ConfigValue({ env: 'EVENTS_NOTIFIER_QUEUE' })
   public readonly queue!: string;
 
